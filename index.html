@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Project Scope Map - Fillable Template</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .canvas-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .project-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .info-input {
+            padding: 10px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .info-input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .quadrant {
+            border: 3px solid #ecf0f1;
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 250px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .quadrant:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .will-do {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-color: #27ae60;
+        }
+        
+        .wont-do {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-color: #e74c3c;
+        }
+        
+        .will-serve {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+            border-color: #3498db;
+        }
+        
+        .wont-serve {
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+            border-color: #9b59b6;
+        }
+        
+        .quadrant-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: #2c3e50;
+        }
+        
+        .icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+        
+        .quadrant-textarea {
+            width: 100%;
+            height: 180px;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.8);
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+        
+        .quadrant-textarea:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
+        }
+        
+        .quadrant-textarea::placeholder {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .footer-text {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .instructions {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .instructions h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .instructions ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+            color: #34495e;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .controls, .instructions {
+                display: none;
+            }
+            .canvas-container {
+                box-shadow: none;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .canvas-grid, .project-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas-container">
+        <div class="header">
+            <div class="title">🎯 AI Project Scope Map</div>
+            <div class="subtitle">Define Clear Boundaries for Successful AI Deployment</div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📝 How to Use This Scope Map:</h3>
+            <ul>
+                <li><strong>Project Info:</strong> Fill in your project name and date</li>
+                <li><strong>Four Quadrants:</strong> Be specific and concrete in each section</li>
+                <li><strong>Share & Align:</strong> Get explicit stakeholder agreement on all quadrants</li>
+                <li><strong>Remember:</strong> The "WON'T DO" sections are often more critical than "WILL DO"</li>
+            </ul>
+        </div>
+        
+        <div class="project-info">
+            <div class="info-field">
+                <label class="info-label">Project Name:</label>
+                <input type="text" class="info-input" id="projectName" placeholder="e.g., Customer Support AI Assistant">
+            </div>
+            <div class="info-field">
+                <label class="info-label">Date:</label>
+                <input type="date" class="info-input" id="projectDate">
+            </div>
+        </div>
+        
+        <div class="canvas-grid">
+            <div class="quadrant will-do">
+                <div class="quadrant-title">
+                    <span class="icon">✅</span>
+                    What We WILL Do
+                </div>
+                <textarea 
+                    class="quadrant-textarea" 
+                    id="willDo"
+                    placeholder="List specific functions and capabilities:
+• Analyze customer support tickets
+• Categorize by urgency & topic  
+• Route to appropriate teams
+• Suggest response templates
+• Track resolution metrics
+
+Be concrete and measurable..."
+                ></textarea>
+            </div>
+            
+            <div class="quadrant wont-do">
+                <div class="quadrant-title">
+                    <span class="icon">❌</span>
+                    What We WON'T Do
+                </div>
+                <textarea 
+                    class="quadrant-textarea" 
+                    id="wontDo"
+                    placeholder="Define explicit exclusions and boundaries:
+• Write complete responses
+• Handle billing disputes  
+• Make refund decisions
+• Process returns
+• Replace human agents
+
+This prevents scope creep..."
+                ></textarea>
+            </div>
+            
+            <div class="quadrant will-serve">
+                <div class="quadrant-title">
+                    <span class="icon">👥</span>
+                    Who We WILL Serve
+                </div>
+                <textarea 
+                    class="quadrant-textarea" 
+                    id="willServe"
+                    placeholder="Identify primary users and stakeholders:
+• Customer support agents
+• Team leads & supervisors
+• Quality assurance team  
+• Support operations manager
+• Customer success team
+
+Be specific about roles and needs..."
+                ></textarea>
+            </div>
+            
+            <div class="quadrant wont-serve">
+                <div class="quadrant-title">
+                    <span class="icon">🚫</span>
+                    Who We WON'T Serve (Initially)
+                </div>
+                <textarea 
+                    class="quadrant-textarea" 
+                    id="wontServe"
+                    placeholder="Define future users and scope expansion:
+• Sales team inquiries
+• Technical support specialists
+• External customers directly
+• Partner support channels  
+• Multilingual support teams
+
+Plan for Phase 2 expansion..."
+                ></textarea>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn btn-primary" onclick="printScopeMap()">🖨️ Print Scope Map</button>
+            <button class="btn btn-secondary" onclick="loadExample()">📄 Load Example</button>
+            <button class="btn btn-danger" onclick="clearScopeMap()">🗑️ Clear All</button>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-text">
+                <strong>💡 Pro Tip:</strong> Share this completed scope map with all stakeholders and get explicit agreement before development begins.
+            </div>
+            <div class="footer-text">
+                <strong>📋 Next Steps:</strong> Use this scope map in stakeholder workshops and project planning meetings.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date as default
+        document.getElementById('projectDate').value = new Date().toISOString().split('T')[0];
+        
+        function printScopeMap() {
+            window.print();
+        }
+        
+        function clearScopeMap() {
+            if (confirm('Are you sure you want to clear all content? This cannot be undone.')) {
+                document.getElementById('projectName').value = '';
+                document.getElementById('projectDate').value = new Date().toISOString().split('T')[0];
+                document.getElementById('willDo').value = '';
+                document.getElementById('wontDo').value = '';
+                document.getElementById('willServe').value = '';
+                document.getElementById('wontServe').value = '';
+            }
+        }
+        
+        function loadExample() {
+            if (confirm('Load the customer support AI example? This will overwrite current content.')) {
+                document.getElementById('projectName').value = 'Customer Support AI Assistant';
+                document.getElementById('willDo').value = `• Analyze incoming customer support tickets
+• Categorize tickets by urgency level (high, medium, low)
+• Categorize tickets by topic (billing, technical, general)
+• Route tickets to appropriate support teams
+• Suggest response templates based on ticket type
+• Track resolution metrics and response times
+• Identify trending issues for proactive resolution
+• Provide basic sentiment analysis of customer messages`;
+                
+                document.getElementById('wontDo').value = `• Write complete customer responses automatically
+• Handle complex billing disputes requiring human judgment
+• Make refund or compensation decisions
+• Process returns or exchanges
+• Replace human customer service agents
+• Handle escalated complaints requiring empathy
+• Manage live chat or phone conversations
+• Access or modify customer payment information`;
+                
+                document.getElementById('willServe').value = `• Level 1 customer support agents
+• Customer support team leads and supervisors  
+• Quality assurance team members
+• Support operations manager
+• Customer success team coordinators
+• New hire support agents (for training)
+• Part-time and seasonal support staff`;
+                
+                document.getElementById('wontServe').value = `• Sales team for lead qualification inquiries
+• Technical support specialists (Level 2/3)
+• External customers directly (no customer-facing interface)
+• Partner and vendor support channels
+• Multilingual support teams (English only initially)
+• Executive escalation team
+• Legal and compliance teams`;
+            }
+        }
+        
+        // Auto-save functionality (in-memory only)
+        const inputs = ['projectName', 'projectDate', 'willDo', 'wontDo', 'willServe', 'wontServe'];
+        let autoSaveData = {};
+        
+        inputs.forEach(id => {
+            const element = document.getElementById(id);
+            element.addEventListener('input', () => {
+                autoSaveData[id] = element.value;
+            });
+        });
+        
+        // Restore data when page loads (if available)
+        window.addEventListener('beforeunload', () => {
+            // Save current state to memory (only persists during session)
+        });
+    </script>
+</body>
+</html>
